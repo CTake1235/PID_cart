@@ -31,7 +31,7 @@ int main(void){
         wait_us(50000);
         dist = fuga.get_dist_cm();
         controller.setProcessValue(dist);
-        power = controller.compute();
+        power = (char)controller.compute();
         send(add,power);
     }
 }
