@@ -21,11 +21,11 @@ void send(char, char);
 
 int main(void){
     dist = 0;
-    // PIDの設定たち
+    // PIDの初期設定たち
     controller.setInputLimits(0, 30);       //ブツの長さによる
     controller.setOutputLimits(0x80,0xff);  //モーターにかけるduty比
     controller.setSetPoint(5);              //目的とする距離[cm]
-    // PIDの設定、以上
+    // PIDの初期設定、以上
     while(true){
         fuga.start();
         wait_us(50000);
