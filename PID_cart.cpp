@@ -11,7 +11,7 @@
 
 HCSR04  fuga(NC, NC);           //超音波センサー
 Thread  hoge;                   //I2C送信用
-PID     controller(2,0,0,0.1);  //
+PID     controller(2,0,0,0.001);  //
 I2C     i2c(D14,D15);
 
 unsigned int dist;
