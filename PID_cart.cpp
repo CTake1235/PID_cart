@@ -23,16 +23,25 @@ int main(void){
     dist = 0;
     // PIDの初期設定たち
     controller.setInputLimits(0, 30);       //ブツの長さによる
-    controller.setOutputLimits(0x80,0xff);  //モーターにかけるduty比
-    controller.setSetPoint(5);              //目的とする距離[cm]
+    controller.setSetPoint(10);             //目的とする距離[cm]
     // PIDの初期設定、以上
     while(true){
         fuga.start();
         wait_us(50000);
         dist = fuga.get_dist_cm();
-        controller.setProcessValue(dist);
-        power = (char)controller.compute();
-        send(add,power);
+
+        // distの値によって回転方向を決める
+        if(dist >= 10 && dist <= 30){
+            controller.setOutputLimits(128,256);
+            controller.setProcessValue((float)dist);
+        }
+        else if(dist < 10){
+            controller.setOutputLimits(128,0);
+            controller.setProcessValue(float(dist));
+        }
+        
+        power = controller.compute();
+        send(add,(char)power);
     }
 }
 
