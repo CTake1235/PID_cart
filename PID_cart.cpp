@@ -34,13 +34,13 @@ int main(void){
         if(dist >= 10 && dist <= 30){
             controller.setOutputLimits(128,256);
             controller.setProcessValue((float)dist);
+            power = controller.compute();
         }
         else if(dist < 10){
-            controller.setOutputLimits(128,0);
+            controller.setOutputLimits(0,128);
             controller.setProcessValue(float(dist));
+            power = 128 - controller.compute();
         }
-        
-        power = controller.compute();
         send(add,(char)power);
     }
 }
